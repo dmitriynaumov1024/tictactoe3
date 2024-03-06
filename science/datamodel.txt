@@ -1,0 +1,55 @@
+standalone tictactoe game
+
+type Client
++ lobby: Lobby
++ game: Game
+
+type Lobby
++ players: Player[]
++ size: Number
+
+type Player
++ name: String
++ type: PlayerType
++ level: Number
++ notify (game: Game)-> ()
++ handlers: ((game: Game)-> ())[]
+
+type Game
++ size: Number
++ board: TicTacToeSign[][]
++ patterns: Coord[][]
++ players: Player[]
++ playerSigns: TicTacToeSign[]
++ status: GameStatus
++ usedCells: Number
++ currentPlayer: Number
++ winnerPlayer: Number
++ winnerPattern: Coord[]
++ draw: Boolean
++ startAt: Timestamp
++ endAt: Timestamp
++ reset ()-> ()
++ putSign (player: Player, cell: Coord)-> ()
++ checkWin ()-> ()
++ static create (options: { size: Number, players: Player[] })-> Game
++ static createBoard (size)-> TicTacToeSign[][]
++ static createPatterns (size)-> Coord[][]
+
+type Coord
++ row: Number
++ col: Number
+
+enum PlayerType
+| player
+| bot
+
+enum TicTacToeSign
+| null
+| cross
+| zero
+
+enum GameStatus
+| ready
+| playing
+| finished
